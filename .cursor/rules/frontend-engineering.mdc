@@ -1,0 +1,28 @@
+---
+description: Padrões React, arquitetura, UI e testes do webapp do cliente
+globs: "src/**/*.{ts,tsx,css}"
+alwaysApply: false
+---
+
+# Engenharia do frontend
+
+- Preserve as versões instaladas e o stack atual: React, Vite, TypeScript,
+  Tailwind CSS v4, HeroUI, TanStack Router, TanStack Query e Motion. Não faça
+  downgrade de React para reproduzir uma decisão antiga.
+- Use HeroUI como biblioteca principal. Use componentes do ecossistema shadcn
+  somente quando a HeroUI não atender ao caso e mantenha a aparência coerente.
+- Use Motion para transições e microinterações que melhorem compreensão, com
+  respeito a `prefers-reduced-motion`; não anime sem propósito.
+- Organize por `app`, `features`, `routes`, `shared` e `config`.
+- Features não importam diretamente umas das outras. Extraia integrações realmente
+  compartilhadas para `shared` e evite abstrações prematuras.
+- Dados remotos e mutações passam por hooks da própria feature usando TanStack
+  Query. Não duplique server state em estado global ou local.
+- Rotas ficam no TanStack Router e componentes de página apenas compõem features.
+- Todo fluxo deve contemplar loading, vazio, erro, sucesso e falta de permissão.
+- Garanta acessibilidade por teclado, foco visível, labels, semântica, contraste e
+  layout responsivo. Não dependa apenas de cor para transmitir estado.
+- Evite `any`, valide fronteiras externas e reutilize os formatadores existentes.
+- Adicione testes para regras, formatadores e interações importantes. Execute
+  typecheck, lint, testes e build antes de concluir.
+

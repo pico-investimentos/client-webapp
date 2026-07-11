@@ -1,0 +1,23 @@
+---
+description: Escopo funcional e limites de confiança do webapp do cliente
+globs:
+alwaysApply: true
+---
+
+# Área do investidor
+
+- Este frontend permite ao cliente visualizar patrimônio e carteira, preencher
+  ou atualizar o perfil de investidor, editar dados pessoais, consultar e baixar
+  documentos e recomendações, e solicitar serviços adicionais.
+- Documentos incluem boletos de imposto, mensalidades, recomendações de
+  investimento ou resgate e outros arquivos autorizados pela API.
+- O frontend é um cliente não confiável. Cálculos oficiais, autorização,
+  permissões, acesso a documentos e mudanças financeiras pertencem à API.
+- Nunca apresente dados demonstrativos como dados reais. Identifique mocks e
+  estados vazios claramente e facilite sua substituição por chamadas reais.
+- Nunca persista sessão em `localStorage`. Prefira cookies `HttpOnly`, `Secure`
+  e `SameSite` emitidos pela API e mantenha `credentials: 'include'` nas chamadas.
+- Variáveis `VITE_*` são públicas. Nunca coloque segredos nelas.
+- Não registre CPF, tokens, saldos, documentos ou respostas sensíveis no browser.
+- Downloads protegidos usam URLs temporárias emitidas pela API após autorização.
+
