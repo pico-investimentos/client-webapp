@@ -1,9 +1,13 @@
 import { FileText } from 'lucide-react'
 import { createFileRoute } from '@tanstack/react-router'
 
+import { requireSession } from '@/features/auth/require-session'
 import { PlaceholderPage } from '@/features/foundation/placeholder-page'
 
 export const Route = createFileRoute('/documents')({
+  beforeLoad: async ({ context }) => {
+    await requireSession(context.queryClient)
+  },
   component: () => (
     <PlaceholderPage
       eyebrow="Documentos"

@@ -8,6 +8,8 @@ export class ApiError extends Error {
   constructor(
     message: string,
     readonly status: number,
+    readonly code: string = 'UNKNOWN_ERROR',
+    readonly requestId?: string,
   ) {
     super(message)
     this.name = 'ApiError'
@@ -26,6 +28,10 @@ export async function apiRequest<T>(path: string, options: ApiRequestOptions = {
     headers.set('Content-Type', 'application/json')
   }
 
+  if (!headers.has('Accept')) {
+    headers.set('Accept', 'application/json')
+  }
+
   const response = await fetch(`${env.apiUrl}/${path.replace(/^\//, '')}`, {
     ...options,
     body,
@@ -34,7 +40,16 @@ export async function apiRequest<T>(path: string, options: ApiRequestOptions = {
   })
 
   if (!response.ok) {
-    throw new ApiError('Não foi possível concluir a solicitação.', response.status)
+    const payload = (await response.json().catch(() => null)) as {
+      error?: { code?: string; message?: string; requestId?: string }
+    } | null
+
+    throw new ApiError(
+      payload?.error?.message ?? 'Não foi possível concluir a solicitação.',
+      response.status,
+      payload?.error?.code ?? 'UNKNOWN_ERROR',
+      payload?.error?.requestId,
+    )
   }
 
   if (response.status === 204) {

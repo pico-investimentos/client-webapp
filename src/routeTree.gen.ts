@@ -11,9 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as B3RevokeAuthorizationRouteImport } from './routes/b3/revoke-authorization'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -25,9 +28,19 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocumentsRoute = DocumentsRouteImport.update({
@@ -40,43 +53,85 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const B3RevokeAuthorizationRoute = B3RevokeAuthorizationRouteImport.update({
+  id: '/b3/revoke-authorization',
+  path: '/b3/revoke-authorization',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/documents': typeof DocumentsRoute
+  '/login': typeof LoginRoute
   '/portfolio': typeof PortfolioRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/services': typeof ServicesRoute
+  '/b3/revoke-authorization': typeof B3RevokeAuthorizationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/documents': typeof DocumentsRoute
+  '/login': typeof LoginRoute
   '/portfolio': typeof PortfolioRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/services': typeof ServicesRoute
+  '/b3/revoke-authorization': typeof B3RevokeAuthorizationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/documents': typeof DocumentsRoute
+  '/login': typeof LoginRoute
   '/portfolio': typeof PortfolioRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/services': typeof ServicesRoute
+  '/b3/revoke-authorization': typeof B3RevokeAuthorizationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/documents' | '/portfolio' | '/profile' | '/services'
+  fullPaths:
+    | '/'
+    | '/documents'
+    | '/login'
+    | '/portfolio'
+    | '/privacy'
+    | '/profile'
+    | '/services'
+    | '/b3/revoke-authorization'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/documents' | '/portfolio' | '/profile' | '/services'
-  id: '__root__' | '/' | '/documents' | '/portfolio' | '/profile' | '/services'
+  to:
+    | '/'
+    | '/documents'
+    | '/login'
+    | '/portfolio'
+    | '/privacy'
+    | '/profile'
+    | '/services'
+    | '/b3/revoke-authorization'
+  id:
+    | '__root__'
+    | '/'
+    | '/documents'
+    | '/login'
+    | '/portfolio'
+    | '/privacy'
+    | '/profile'
+    | '/services'
+    | '/b3/revoke-authorization'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DocumentsRoute: typeof DocumentsRoute
+  LoginRoute: typeof LoginRoute
   PortfolioRoute: typeof PortfolioRoute
+  PrivacyRoute: typeof PrivacyRoute
   ProfileRoute: typeof ProfileRoute
   ServicesRoute: typeof ServicesRoute
+  B3RevokeAuthorizationRoute: typeof B3RevokeAuthorizationRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -95,11 +150,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portfolio': {
       id: '/portfolio'
       path: '/portfolio'
       fullPath: '/portfolio'
       preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/documents': {
@@ -116,15 +185,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/b3/revoke-authorization': {
+      id: '/b3/revoke-authorization'
+      path: '/b3/revoke-authorization'
+      fullPath: '/b3/revoke-authorization'
+      preLoaderRoute: typeof B3RevokeAuthorizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DocumentsRoute: DocumentsRoute,
+  LoginRoute: LoginRoute,
   PortfolioRoute: PortfolioRoute,
+  PrivacyRoute: PrivacyRoute,
   ProfileRoute: ProfileRoute,
   ServicesRoute: ServicesRoute,
+  B3RevokeAuthorizationRoute: B3RevokeAuthorizationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
