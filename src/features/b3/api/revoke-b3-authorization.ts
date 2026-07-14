@@ -75,6 +75,9 @@ export function mapB3RevocationError(error: unknown): string {
         return 'A autorização B3 já está revogada.'
       case 'B3_AUTHORIZATION_REVOCATION_UNAVAILABLE':
         return 'Não foi possível falar com a B3 agora. Tente novamente em instantes.'
+      case 'TOO_MANY_REVOCATIONS':
+      case 'TOO_MANY_ATTEMPTS':
+        return 'Muitas tentativas de revogação. Aguarde alguns minutos e tente de novo.'
       case 'UNAUTHENTICATED':
       case 'UNAUTHORIZED':
         return 'Faça login para revogar a autorização.'

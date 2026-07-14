@@ -67,6 +67,9 @@ export function mapB3ConfirmationError(error: unknown): string {
         return 'Complete seu CPF no cadastro antes de atualizar o status.'
       case 'B3_AUTHORIZATION_CONFIRMATION_UNAVAILABLE':
         return 'Não foi possível consultar a B3 agora. Tente novamente em instantes.'
+      case 'TOO_MANY_CONFIRMATIONS':
+      case 'TOO_MANY_ATTEMPTS':
+        return 'Muitas atualizações de status. Aguarde alguns minutos e tente de novo.'
       case 'UNAUTHENTICATED':
         return 'Faça login para atualizar o status da conexão.'
       default:
