@@ -5,6 +5,8 @@ export type SessionUser = {
   email: string
   hasCpf: boolean
   isActive?: boolean
+  /** Present on login and /me; the investor app ignores it. */
+  role?: 'investor' | 'assessor' | 'admin'
 }
 
 export async function login(email: string, password: string) {
