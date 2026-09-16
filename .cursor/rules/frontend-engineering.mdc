@@ -1,6 +1,6 @@
 ---
 description: Padrões React, arquitetura, UI e testes do webapp do cliente
-globs: "src/**/*.{ts,tsx,css}"
+globs: src/**/*.ts,src/**/*.tsx,src/**/*.css
 alwaysApply: false
 ---
 
